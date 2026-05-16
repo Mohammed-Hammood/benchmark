@@ -1,0 +1,47 @@
+{
+  "Home": "Главная",
+  "About": "О проекте",
+
+  "benchmarkConfig": "Настройки бенчмарка",
+  "caching": "Кэширование",
+  "recordLimit": "Лимит записей",
+  "concurrentRequests": "Параллельных запросов",
+  "runBenchmark": "Запустить",
+  "running": "Выполняется...",
+  "resetHistory": "Сбросить историю",
+
+  "django": "Django",
+  "fastapi": "FastAPI",
+  "avgMs": "Среднее (мс)",
+  "medianMs": "Медиана (мс)",
+  "minMs": "Мин (мс)",
+  "maxMs": "Макс (мс)",
+  "successRate": "Успешных запросов",
+  "cacheHitRatio": "Попадания в кэш",
+  "ms": "мс",
+  "latency": "Задержка",
+
+  "latencyComparison": "Сравнение задержек",
+  "latencyVsRecordCount": "Задержка в зависимости от количества записей",
+  "lineChartHint": "Запустите бенчмарк с разными лимитами записей, чтобы заполнить этот график",
+
+  "exportCsv": "Экспорт CSV",
+  "exportJson": "Экспорт JSON",
+  "running_django": "Запускаем Django...",
+  "running_fastapi": "Запускаем FastAPI...",
+
+  "about": {
+    "headline": "Измерь, сравни, выбери.",
+    "subheading": "Инструмент сравнения производительности двух Python-бэкендов в одинаковых условиях в реальном времени.",
+    "backendsLabel": "Сравниваемые бэкенды",
+    "stackLabel": "Технологии",
+    "builtByLabel": "Разработано",
+    "sourceLabel": "Исходный код",
+    "django": {
+      "description": "Зрелый Python-фреймворк со всем необходимым"
+    },
+    "fastapi": {
+      "description": "Современный async-first высокопроизводительный фреймворк"
+    }
+  }
+}

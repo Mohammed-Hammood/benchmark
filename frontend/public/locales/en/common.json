@@ -1,0 +1,47 @@
+{
+  "Home": "Home",
+  "About": "About",
+
+  "benchmarkConfig": "Benchmark Configuration",
+  "caching": "Caching",
+  "recordLimit": "Record Limit",
+  "concurrentRequests": "Concurrent Requests",
+  "runBenchmark": "Run Benchmark",
+  "running": "Running...",
+  "resetHistory": "Reset History",
+
+  "django": "Django",
+  "fastapi": "FastAPI",
+  "avgMs": "Avg (ms)",
+  "medianMs": "Median (ms)",
+  "minMs": "Min (ms)",
+  "maxMs": "Max (ms)",
+  "successRate": "Success Rate",
+  "cacheHitRatio": "Cache Hit Ratio",
+  "ms": "ms",
+  "latency": "Latency",
+
+  "latencyComparison": "Latency Comparison",
+  "latencyVsRecordCount": "Latency vs Record Count",
+  "lineChartHint": "Run benchmarks with different record limits to populate this chart",
+
+  "exportCsv": "Export CSV",
+  "exportJson": "Export JSON",
+  "running_django": "Running Django...",
+  "running_fastapi": "Running FastAPI...",
+
+  "about": {
+    "headline": "Benchmark, compare, decide.",
+    "subheading": "A real-time performance comparison tool for two popular Python backends under identical conditions.",
+    "backendsLabel": "Backends Compared",
+    "stackLabel": "Tech Stack",
+    "builtByLabel": "Built by",
+    "sourceLabel": "Source code",
+    "django": {
+      "description": "Mature, batteries-included Python framework"
+    },
+    "fastapi": {
+      "description": "Modern, async-first high-performance framework"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+fastapi/.env
+django/.env
+.env
+.venv
+myenv
+__pycache__
+node_modules

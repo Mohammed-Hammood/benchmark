@@ -1,0 +1,81 @@
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB:       ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6380:6379" # Host port: Container port
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  fastapi:
+    build: ./fastapi
+    container_name: fastapi
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL:    redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: >
+      sh -c "echo '🚀 FastAPI Starting...' &&
+             echo '🔗 DATABASE_URL: $$DATABASE_URL' &&
+             echo '📡 REDIS_URL: $$REDIS_URL' &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+      
+
+  django:
+    build: ./django
+    container_name: django
+    environment:
+      DATABASE_URL:    postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL:       redis://redis:6379/0
+      SECRET_KEY:      ${DJANGO_SECRET_KEY}
+      DEBUG:           "False"
+      WEB_CONCURRENCY: "5"
+      DJANGO_SETTINGS_MODULE:  "config.settings"
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      # - fastapi
+      - django
+
+volumes:
+  postgres_data:
