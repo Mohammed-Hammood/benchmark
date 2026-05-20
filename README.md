@@ -9,6 +9,7 @@ Ideal for evaluating:
 - Frontend rendering performance with large datasets
 - Scalability trade-offs between Django ORM and FastAPI + async
 
+
 ---
 
 ## 📁 Project Structure
