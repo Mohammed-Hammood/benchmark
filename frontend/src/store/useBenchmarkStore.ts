@@ -22,8 +22,8 @@ interface BenchmarkState {
 }
 
 const BACKENDS = {
-  fastapi: "http://localhost:8000/api/users",
-  django: "http://localhost:8001/api/users",
+  fastapi: "/fastapi/api/users",
+  django: "/django/api/users",
 };
 
 const fetchWithTiming = async (
