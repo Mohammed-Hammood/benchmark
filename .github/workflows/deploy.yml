@@ -3,7 +3,7 @@ name: Deploy to Timeweb
 on:
   push:
     branches:
-      - main          # triggers on every push to main
+      - main          # triggers on every push to main 
 
 jobs:
   deploy:
