@@ -37,6 +37,7 @@
     "stackLabel": "Технологии",
     "builtByLabel": "Разработано",
     "sourceLabel": "Исходный код",
+    "Mohammed": "Мохаммед",
     "django": {
       "description": "Зрелый Python-фреймворк со всем необходимым"
     },

@@ -1,0 +1,54 @@
+name: Deploy to Timeweb
+
+on:
+  push:
+    branches:
+      - main          # triggers on every push to main
+
+jobs:
+  deploy:
+    name: SSH Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy code to server
+        run: |
+          rsync -az --delete \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='**/myenv' \
+            --exclude='**/env' \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/benchmark/
+
+      - name: Write .env file on server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "echo '${{ secrets.ENV_FILE }}' > /opt/benchmark/.env"
+
+      - name: Deploy with Docker Compose
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /opt/benchmark
+            docker compose pull || true
+            docker compose up -d --build --remove-orphans
+            docker compose ps
+          EOF
+
+      - name: Health check
+        run: |
+          sleep 15
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "docker compose -f /opt/benchmark/docker-compose.yml ps --format json | grep -q 'running' && echo '✅ Deploy successful' || echo '❌ Some containers may be down'"

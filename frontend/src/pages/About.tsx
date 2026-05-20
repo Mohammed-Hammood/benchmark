@@ -117,10 +117,10 @@ export default function About() {
                     <p className="text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">
                         {t('about.builtByLabel')}
                     </p>
-                    <p className="text-lg font-bold text-gray-800 dark:text-white">Mohammed</p>
+                    <p className="text-lg font-bold text-gray-800 dark:text-white">{t("about.Mohammed")}</p>
                 </div>
                 <a
-                    href="https://github.com/mohammed"
+                    href="https://github.com/Mohammed-Hammood/benchmark"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm

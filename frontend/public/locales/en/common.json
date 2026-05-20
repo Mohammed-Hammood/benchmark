@@ -36,6 +36,7 @@
     "backendsLabel": "Backends Compared",
     "stackLabel": "Tech Stack",
     "builtByLabel": "Built by",
+    "Mohammed": "Mohammed",
     "sourceLabel": "Source code",
     "django": {
       "description": "Mature, batteries-included Python framework"
