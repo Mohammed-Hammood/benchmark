@@ -73,8 +73,13 @@ services:
     container_name: frontend
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      # Mount SSL certificates from host to container
+      - /etc/letsencrypt/live/benchmark.worldoftechnology.net:/etc/letsencrypt/live/benchmark.worldoftechnology.net:ro
+      - /etc/letsencrypt/archive/benchmark.worldoftechnology.net:/etc/letsencrypt/archive/benchmark.worldoftechnology.net:ro
     depends_on:
-      # - fastapi
+      - fastapi
       - django
 
 volumes:
