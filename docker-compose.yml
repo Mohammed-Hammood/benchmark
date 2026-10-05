@@ -1,5 +1,9 @@
 name: benchmark
 
+# Sequential builds: Compose builds images in dependency order
+# (go -> fastapi -> frontend, see depends_on below). The .env file next to
+# this one sets COMPOSE_PARALLEL_LIMIT=1 so only one image builds at a time.
+
 services:
   go:
     build: ./gin
@@ -19,6 +23,10 @@ services:
   fastapi:
     build: ./fastapi
     restart: unless-stopped
+    # Build/start order: go -> fastapi -> frontend (see .env for sequential builds)
+    depends_on:
+      go:
+        condition: service_healthy
     volumes:
       - fastapi_data:/app/generated_data
     ports:
