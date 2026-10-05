@@ -1,0 +1,54 @@
+name: benchmark
+
+services:
+  go:
+    build: ./gin
+    restart: unless-stopped
+    volumes:
+      - go_data:/app/generated_data
+    ports:
+      - "127.0.0.1:8081:8081"   # direct access for curl; remove if not needed
+    # TCP check (no HTTP request), so nothing shows up in the access logs
+    healthcheck:
+      test: ["CMD", "nc", "-z", "-w", "2", "127.0.0.1", "8081"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 3s
+
+  fastapi:
+    build: ./fastapi
+    restart: unless-stopped
+    volumes:
+      - fastapi_data:/app/generated_data
+    ports:
+      - "127.0.0.1:8080:8080"   # direct access for curl; remove if not needed
+    # TCP check (no HTTP request), so nothing shows up in the access logs
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import socket; socket.create_connection(('127.0.0.1', 8080), 3).close()"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NGINX_CONF: nginx.conf
+    restart: unless-stopped
+    depends_on:
+      go:
+        condition: service_healthy
+      fastapi:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-3000}:80"
+
+volumes:
+  go_data:
+  fastapi_data:

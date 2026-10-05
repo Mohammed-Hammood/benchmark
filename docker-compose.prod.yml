@@ -1,0 +1,19 @@
+# Production override: HTTPS with Let's Encrypt certificates from the host.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Requires Docker Compose v2.24+ (for the !override / !reset tags).
+services:
+  go:
+    ports: !reset []
+  fastapi:
+    ports: !reset []
+  frontend:
+    build:
+      args:
+        NGINX_CONF: nginx.prod.conf
+    ports: !override
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro

@@ -1,0 +1,98 @@
+{
+  "Home": "Home",
+  "About": "About",
+
+  "benchmarkConfig": "Benchmark Configuration",
+  "intro": "Send the same request to the Go / Gin and Python / FastAPI servers, one after the other, and compare how long each one takes.",
+
+  "tests": {
+    "math": {
+      "title": "Math calculation",
+      "description": "Loops n times. Even indexes add 1, odd indexes add their last digit, and every iteration also adds a random number from 1 to 1,000.",
+      "nLabel": "Iterations (n)",
+      "run": "Run math test"
+    },
+    "generate": {
+      "title": "Data generation",
+      "description": "Builds n random users (id, name, gender, age), serialises them to JSON and saves the file on the server.",
+      "nLabel": "Users to generate (n)",
+      "run": "Run generation test"
+    }
+  },
+
+  "range": "Range: {{min}} – {{max}}",
+  "quickPicks": "Quick picks",
+  "logScale": "logarithmic scale",
+  "outOfRange": "Enter a whole number between {{min}} and {{max}}.",
+  "slowWarning": "Large values can take several minutes, especially on Python. You can cancel at any time.",
+
+  "running": "Running...",
+  "cancel": "Cancel",
+  "elapsed": "Elapsed: {{time}}",
+  "phase": {
+    "go": "Waiting for Go / Gin...",
+    "python": "Waiting for Python / FastAPI..."
+  },
+
+  "latestRun": "Latest run",
+  "fasterBy": "{{winner}} was {{factor}}× faster (server execution time).",
+  "similar": "Both servers finished in about the same time.",
+  "comparisonUnavailable": "No comparison available because at least one request failed.",
+
+  "testType": "Test type",
+  "result": "Result",
+  "fileSaved": "File saved",
+  "serverTime": "Server execution time",
+  "roundTrip": "Round trip (browser)",
+  "overhead": "Network & overhead",
+  "httpStatus": "HTTP status",
+  "noResponse": "No response",
+  "success": "Success",
+  "failed": "Failed",
+  "rawResponse": "Raw response",
+
+  "latencyComparison": "Server time vs round trip",
+  "timeVsN": "Server time vs n",
+  "timeVsNHint": "Both axes are logarithmic. Run the same test with different n values to add points.",
+
+  "history": "Run history",
+  "time": "Time",
+  "test": "Test",
+  "faster": "Faster",
+
+  "resetHistory": "Reset History",
+  "exportCsv": "Export CSV",
+  "exportJson": "Export JSON",
+
+  "ms": "ms",
+  "s": "s",
+  "min": "min",
+
+  "about": {
+    "headline": "Benchmark, compare, decide.",
+    "subheading": "A real-time performance comparison of a compiled Go server and an interpreted Python server doing identical work.",
+    "backendsLabel": "Backends Compared",
+    "testsLabel": "The Two Tests",
+    "notesLabel": "How to Read the Results",
+    "stackLabel": "Frontend Tech Stack",
+    "builtByLabel": "Built by",
+    "Mohammed": "Mohammed",
+    "sourceLabel": "Source code",
+    "go": {
+      "description": "Compiled, statically typed language with the Gin HTTP framework"
+    },
+    "python": {
+      "description": "Interpreted language with the modern, async-first FastAPI framework"
+    },
+    "tests": {
+      "math": "A CPU-bound loop with no I/O. It shows raw language speed: how fast each runtime can execute n iterations of simple arithmetic and random number generation.",
+      "generate": "Builds n user records in memory, encodes them as JSON and writes them to disk. It mixes CPU work (random data, serialisation) with file I/O."
+    },
+    "notes": {
+      "sequential": "Requests run one after the other, Go first and then Python, so the two servers never compete for the same CPU.",
+      "timing": "Server execution time is measured inside each API and covers only the work itself. Round trip is measured by your browser and also includes the network and proxy.",
+      "random": "Each server draws its own random numbers, so the math result and the generated file contents differ between backends. Only the timings are comparable.",
+      "language": "Go compiles to machine code, while Python executes the loop step by step in its interpreter. The gap usually grows with n, which is why the chart axes are logarithmic."
+    }
+  }
+}

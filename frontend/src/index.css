@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode — THIS is how Tailwind v4 does it */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-teal-light: #02afaf;
+  --color-teal: #008080;
+  --color-teal-dark: #004b4b;
+  --color-teal-darker: #003333;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+html.dark body {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
