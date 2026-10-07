@@ -1,4 +1,48 @@
-env
-.env
-myenv
-node_modules
+# ── Python / FastAPI ─────────────────────────────────────────────────────────
+env/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Go / Gin ─────────────────────────────────────────────────────────────────
+/gin/server
+/gin/benchmark
+*.exe
+*.test
+*.out
+
+# ── Frontend (Vite / React) ──────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+# The project uses yarn; keep yarn.lock as the only lockfile
+frontend/package-lock.json
+
+# ── Files written by the benchmark itself (/api/generate) ───────────────────
+generated_data/
+
+# ── Local config, secrets, logs ──────────────────────────────────────────────
+# The root .env is NOT ignored: it holds COMPOSE_PARALLEL_LIMIT / COMPOSE_BAKE,
+# which the compose setup relies on. Put real secrets in .env.local instead.
+.env.local
+.env.*.local
+*.log
+logs/
+
+# ── Docker ───────────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── Editors / OS ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ── Stray copies ─────────────────────────────────────────────────────────────
+*copy.conf
